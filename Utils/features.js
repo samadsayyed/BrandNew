@@ -3,7 +3,9 @@ import jwt from "jsonwebtoken";
 
 export const connectDb = () => {
   mongoose
-    .connect(process.env.DATA_BASEURI)
+    .connect(process.env.DATA_BASEURI,{
+      dbName:"TaskFlow"
+    })
     .then((c) => console.log(`Database Connected with ${c.connection.host}`))
     .catch((e) => console.log(e));
 };
