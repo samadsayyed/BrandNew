@@ -22,8 +22,8 @@ res.send("welcome")
 })
 
 app.use("/api",userRouter)
-app.use(teamRouter)
-app.use(taskRouter)
+app.use("/api",teamRouter)
+app.use("/api",taskRouter)
 
 app.listen(3000,()=>{
     console.log("server working")
