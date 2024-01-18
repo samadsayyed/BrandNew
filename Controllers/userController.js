@@ -98,3 +98,19 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const logoutUser = async(req,res)=>{
+  try {
+    res
+    .status(200)
+    .cookie("token", null, {
+      maxAge: 0
+    })
+    .json({
+      success: true,
+      message:"loggedOut user",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
