@@ -4,7 +4,7 @@ import { createTeam, deleteTeam, getAllTeams, getTeamById, updateTeam } from "..
 
 const router = express.Router();
 
-router.route("/teams").get(isAuthenticated,isAdmin,getAllTeams).post(isAuthenticated,isAdmin,createTeam)
-router.route("/teams/:teamId").get(getTeamById).put(updateTeam).delete(deleteTeam)
+router.route("/teams").get(isAuthenticated,getAllTeams).post(isAuthenticated,isAdmin,createTeam)
+router.route("/teams/:teamId").get(getTeamById).put(updateTeam).delete(isAdmin,deleteTeam)
 
 export default router
