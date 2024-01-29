@@ -11,6 +11,15 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+export const Profile = async(req,res)=>{
+  try {
+    const user = req.user;
+    res.json({user});
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 export const getUserById = async (req, res) => {
   const { userId } = req.params;
   try {
