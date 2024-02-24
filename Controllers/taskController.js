@@ -75,41 +75,45 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const { taskId } = req.params;
-    const { title, description, deadline, priority, assignedTo, assignedTeam } =
-      req.body;
 
     // Check if the assigned user exists
-    const assignedUser = await User.findById(assignedTo);
-    if (!assignedUser) {
-      return res.status(400).json({ error: "Assigned user not found" });
-    }
+    // const assignedUser = await User.findById(assignedTo);
+    // if (!assignedUser) {
+    //   return res.status(400).json({ error: "Assigned user not found" });
+    // }
 
     // Check if the assigned team exists
-    const assignedTeamExists = await Team.findById(assignedTeam);
-    if (!assignedTeamExists) {
-      return res.status(400).json({ error: "Assigned team not found" });
-    }
+    // const assignedTeamExists = await Team.findById(assignedTeam);
+    // if (!assignedTeamExists) {
+    //   return res.status(400).json({ error: "Assigned team not found" });
+    // }
+    const updateTask = await Task.findById(taskId);
 
-    const updatedTask = await Task.findByIdAndUpdate(
-      taskId,
-      {
-        title,
-        description,
-        deadline,
-        priority,
-        assignedTo,
-        assignedTeam,
-      },
-      { new: true, runValidators: true }
-    )
-      .populate("assignedTo", "username email")
-      .populate("assignedTeam", "name");
+    updateTask.completed = !updateTask.completed;
+    console.log(updateTask.completed);
+    await updateTask.save()
 
-    if (!updatedTask) {
-      return res.status(404).json({ error: "Task not found" });
-    }
+    // const updatedTask = await Task.findByIdAndUpdate(
+    //   taskId,
+    //   {
+    //     // title,
+    //     // description,
+    //     // deadline,
+    //     // priority,
+    //     // assignedTo,
+    //     // assignedTeam,
+    //     completed
+    //   },
+    //   { new: true, runValidators: true }
+    // )
+    //   .populate("assignedTo", "username email")
+    //   .populate("assignedTeam", "name");
 
-    res.json({ message: "Task updated successfully", task: updatedTask });
+    // if (!updatedTask) {
+    //   return res.status(404).json({ error: "Task not found" });
+    // }
+
+    res.json({ message: "Task updated successfully", task: updateTask });
   } catch (error) {
     console.error("Error updating task:", error);
     res.status(500).json({ error: "Internal Server Error" });
