@@ -123,3 +123,16 @@ export const logoutUser = async(req,res)=>{
     console.log(error);
   }
 }
+
+export const checkAuth = (req,res)=>{
+  const user = req.user;
+  if(!user){
+    res.json({
+      message:"error occured"
+    })
+  }
+  res.json({
+    user,
+    message:"Authenticated user"
+  })
+}
