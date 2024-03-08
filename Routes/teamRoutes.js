@@ -5,6 +5,6 @@ import { createTeam, deleteTeam, getAllTeams, getTeamById, updateTeam } from "..
 const router = express.Router();
 
 router.route("/teams").get(isAuthenticated,getAllTeams).post(isAuthenticated,isAdmin,createTeam)
-router.route("/teams/:teamId").get(getTeamById).put(updateTeam).delete(isAdmin,deleteTeam)
+router.route("/teams/:teamId").get(getTeamById).put(updateTeam).delete(isAuthenticated,isAdmin,deleteTeam)
 
 export default router
